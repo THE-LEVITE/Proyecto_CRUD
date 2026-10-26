@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sena API REST proyect</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Neo-Brutalism Stylesheet -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.25/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+
+    <!-- ======================================================================
+         Top Navigation Bar (Neo-Brutalism Header)
+         ====================================================================== -->
+    <header class="top-navbar">
+        <!-- Left Brand Box -->
+        <div class="brand-wrapper">
+            <div class="brand-pop-box">
+                <div class="brand-icon-wrap" title="SENA">
+                    <svg viewBox="0 0 75 74" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#39a900" d="M 37.729312,0.76709211 A 7.9671225,7.9671225 0 0 0 29.773371,8.741545 7.9671225,7.9671225 0 0 0 37.744605,16.701107 7.9671225,7.9671225 0 0 0 45.707788,8.733898 V 8.718608 A 7.9671225,7.9671225 0 0 0 37.729312,0.76709211 Z M 11.446982,19.169553 c -1.400062,0.0084 -2.8234862,0.08599 -4.1584857,0.42261 -0.8795905,0.222694 -1.7315449,0.589234 -2.2841086,1.159562 -0.6939573,0.71469 -0.7830516,1.683375 -0.4447463,2.510708 0.3027378,0.728932 1.116412,1.275934 2.0228936,1.588612 1.9500175,0.668079 4.117455,0.809612 6.168096,1.230399 0.378207,0.09257 0.796556,0.194498 1.030766,0.452796 0.242885,0.306852 0.09871,0.729986 -0.299446,0.922901 -0.666204,0.338572 -1.517067,0.341289 -2.29256,0.329636 -0.708709,-0.02913 -1.4860247,-0.08878 -2.0498634,-0.44354 -0.4146382,-0.255061 -0.487253,-0.689278 -0.3944343,-1.062161 l -4.5714374,4.13e-4 c -0.012144,0.695917 0.1230528,1.422157 0.6331108,2.019674 0.4259168,0.510124 1.1138561,0.869443 1.8546552,1.08631 1.1823274,0.347635 2.4633397,0.45247 3.7246061,0.484191 1.711468,0.02913 3.456086,-0.02172 5.099895,-0.410133 0.979349,-0.238231 1.942311,-0.624278 2.569473,-1.250927 1.113798,-1.117998 0.851643,-2.888599 -0.629086,-3.758011 -0.737329,-0.429203 -1.620362,-0.695805 -2.52077,-0.867357 -1.316781,-0.273188 -2.657724,-0.472977 -3.991855,-0.693081 -0.468421,-0.09127 -0.9637641,-0.17183 -1.3575867,-0.393229 -0.4120347,-0.221399 -0.4451988,-0.742521 -0.025355,-0.970393 0.5430207,-0.306203 1.2665147,-0.304035 1.9162377,-0.304681 0.68528,0.01165 1.430476,0.05483 1.994315,0.375921 0.31575,0.17673 0.442485,0.473443 0.445955,0.758283 l 4.344837,-0.01004 c -0.01734,-0.550925 -0.118731,-1.123123 -0.521227,-1.598289 -0.466686,-0.585218 -1.287477,-0.954052 -2.13237,-1.169625 -1.325457,-0.335334 -2.741002,-0.404061 -4.131515,-0.410535 z m 9.425817,0.328831 -0.0019,10.38132 12.670256,4.12e-4 -0.0011,-2.263178 H 25.518157 V 25.60169 h 7.154592 v -2.212465 h -7.154592 l -0.0016,-1.652607 7.734167,-0.002 -0.0044,-2.236213 z m 20.874932,0.0036 c 0,0 -3.91491,0.0012 -5.871868,0.0012 l -8.25e-4,10.382125 4.448274,4.12e-4 -0.0028,-6.986351 6.093235,6.980716 6.104905,0.0056 -0.0016,-10.382527 -4.451897,7.97e-4 0.0052,6.936443 z m 18.702713,0.01731 c 0,0 -4.795135,6.925757 -7.204899,10.383332 l 4.669239,4.12e-4 1.120118,-1.873169 h 7.21456 l 1.045256,1.873974 5.186434,-7.96e-4 -6.872848,-10.382125 z m 2.333214,2.478105 2.214074,3.76083 -4.576669,0.0065 z m -62.26819489,10.81881 0.0402459,5.651707 21.11883799,-0.07527 c 1.07706,0.231841 1.7024,0.932964 1.482355,2.526807 l -12.989427,22.73807 4.231335,3.955631 20.118662,-34.796918 z m 40.29930289,0.0483 19.784196,34.649208 4.372205,-3.930275 -13.14036,-22.678472 c -0.22011,-1.598763 0.405444,-2.307963 1.482759,-2.540491 l 21.123264,0.07527 -0.0056,-5.557928 z m -3.337814,5.733814 -18.552992,31.845491 4.928038,2.401635 12.380065,-20.924035 c 0.426522,-0.348923 0.858497,-0.534847 1.290772,-0.552212 0.455325,-0.01744 0.916655,0.151004 1.377709,0.511558 l 12.351487,20.988033 5.083398,-2.65158 z"/>
+                    </svg>
+                </div>
+                <div class="brand-title-group">
+                    <div class="brand-badge-row">
+                        <span class="badge-sparkle">✨ ORIGINAL CRUD</span>
+                        <span class="badge-version">v2.4 POP</span>
+                    </div>
+                    <span class="brand-main-text">SENA CRUD GENERATOR !</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right System Pill -->
+        <div class="nav-right-pill">
+            <div class="nav-pill-icon">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
+            <div class="nav-pill-texts">
+                <span class="nav-pill-title">
+                    Sena API REST proyect <span class="nav-pill-tag">v2.4</span>
+                </span>
+                <span class="nav-pill-sub">Servicio Nacional de Aprendizaje • Gestión y Catálogo</span>
+            </div>
+            <span class="live-green-dot" title="API En Línea"></span>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         Sub-Navbar: Breadcrumbs & Refresh Button (No Excel as requested)
+         ====================================================================== -->
+    <div class="sub-nav-bar">
+        <div class="crumb-pills-wrap">
+            <span class="crumb-pill">
+                <i class="fa-solid fa-house"></i> Inicio
+            </span>
+            <span class="crumb-sep">⚡</span>
+            <span class="crumb-pill">
+                <i class="fa-solid fa-boxes-stacked"></i> Inventario
+            </span>
+            <span class="crumb-sep">⚡</span>
+            <span class="crumb-pill active">
+                <i class="fa-solid fa-folder-open"></i> Registro & Catálogo de Productos
+                <span class="crumb-tag-sena">SENA API</span>
+            </span>
+        </div>
+
+        <!-- Refresh Button -->
+        <button type="button" class="btn-refresh-pop" id="btnRefrescarPop" title="Recargar datos del servidor">
+            <i class="fa-solid fa-arrows-rotate"></i> Refrescar
+        </button>
+    </div>
+
+    <!-- ======================================================================
+         Top Stats Banner (3 Cards: Total, Valor, Crítico - No Categoría Top)
+         ====================================================================== -->
+    <section class="stats-banner">
+        <div class="stats-grid-3">
+            <!-- Stat 1: Total Productos -->
+            <div class="stat-pop-card">
+                <div class="stat-icon-square stat-icon-yellow">
+                    📦
+                </div>
+                <div class="stat-details">
+                    <span class="stat-header-label">TOTAL PRODUCTOS</span>
+                    <div class="stat-main-number-row">
+                        <span class="stat-huge-number" id="statNumTotal">--</span>
+                        <span class="stat-pill-badge active-badge">Activos ✨</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat 2: Valor Inventario -->
+            <div class="stat-pop-card">
+                <div class="stat-icon-square stat-icon-green">
+                    💵
+                </div>
+                <div class="stat-details">
+                    <span class="stat-header-label">VALOR INVENTARIO</span>
+                    <div class="stat-main-number-row">
+                        <span class="stat-huge-number green-val" id="statValorInventario">$0</span>
+                        <span class="stat-currency-tag">COP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat 3: Stock Crítico -->
+            <div class="stat-pop-card">
+                <div class="stat-icon-square stat-icon-red">
+                    ⚠️
+                </div>
+                <div class="stat-details">
+                    <span class="stat-header-label">STOCK CRÍTICO</span>
+                    <div class="stat-main-number-row">
+                        <span class="stat-huge-number" id="statNumCritico" style="color: var(--pop-red-dark);">0</span>
+                        <span class="stat-pill-badge alert-badge">Alerta 🚨</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         Main Dashboard Container
+         ====================================================================== -->
+    <main class="dashboard-container">
+        <div class="dashboard-layout">
+
+            <!-- --------------------------------------------------------------
+                 Left Sidebar (Matching reference image)
+                 -------------------------------------------------------------- -->
+            <aside class="sidebar">
+
+                <!-- Admin Profile Card (Static / Vibrant Green Pop Style) -->
+                <div class="admin-profile-card">
+                    <div class="admin-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="admin-info">
+                        <h2 class="admin-name">Administrador de inventario</h2>
+                        <div class="admin-badges-row">
+                            <span class="admin-badge-boss">SUPER BOSS ★</span>
+                            <span class="admin-badge-online">En línea 🚀</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Card (Matching Screenshot Form) -->
+                <div class="sidebar-action-card">
+                    <div class="sidebar-card-header">
+                        <h3 class="sidebar-header-title">
+                            <span class="sidebar-header-icon-circle"><i class="fa-solid fa-plus"></i></span>
+                            REGISTRAR PRODUCTO
+                        </h3>
+                        <span class="sidebar-badge">⚡ CRUD Form</span>
+                    </div>
+
+                    <div class="sidebar-card-body">
+                        <!-- Input: Nombre -->
+                        <div class="sidebar-form-group">
+                            <label for="sidebar_nombre" class="sidebar-label">
+                                Nombre del Producto <span class="req">*</span>
+                            </label>
+                            <div class="sidebar-input-group">
+                                <i class="fa-solid fa-tag"></i>
+                                <input type="text" id="sidebar_nombre" class="sidebar-input" placeholder="Ej. Teclado Mecánico" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <!-- Input: Precio -->
+                        <div class="sidebar-form-group">
+                            <label for="sidebar_precio" class="sidebar-label">
+                                Precio ($) <span class="req">*</span>
+                            </label>
+                            <div class="sidebar-input-group">
+                                <i class="fa-solid fa-coins"></i>
+                                <input type="number" id="sidebar_precio" class="sidebar-input" placeholder="$ 0.00" min="0">
+                            </div>
+                        </div>
+
+                        <!-- Input: Cantidad -->
+                        <div class="sidebar-form-group">
+                            <label for="sidebar_cantidad" class="sidebar-label">
+                                Cantidad en Stock <span class="req">*</span>
+                            </label>
+                            <div class="sidebar-input-group">
+                                <i class="fa-solid fa-cubes-stacked"></i>
+                                <input type="number" id="sidebar_cantidad" class="sidebar-input" placeholder="Ej. 10" min="0">
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="button" id="btnSidebarRegistrar" class="btn-sidebar-submit">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            ¡REGISTRAR PRODUCTO! 🚀
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Additional Sidebar Card: Quick Tip -->
+                <div class="sidebar-tip-card">
+                    <span class="tip-icon">💡</span>
+                    <p class="tip-text">
+                        <strong>TIP:</strong> ¡Organiza tu stock con estilo y buena vibra!
+                    </p>
+                </div>
+
+                <!-- Additional Sidebar Card: Recent Activity -->
+                <div class="sidebar-activity-card">
+                    <div class="activity-header">
+                        <span class="activity-title">
+                            ⚡ ACTIVIDAD RECIENTE
+                        </span>
+                        <span class="badge-live-pulse">En vivo</span>
+                    </div>
+                    <div class="activity-list" id="activityList">
+                        <div class="activity-item">
+                            <span class="act-icon">📦</span>
+                            <div class="act-content">
+                                <span class="act-name">Sistema inicializado</span>
+                                <span class="act-time">Sena REST API v2.4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- --------------------------------------------------------------
+                 Right Main Content (Table & Controls)
+                 -------------------------------------------------------------- -->
+            <section class="main-card">
+
+                <!-- Table Action Toolbar (No category pills filter as requested) -->
+                <div class="table-toolbar">
+                    <div class="toolbar-left">
+                        <!-- Primary Add Button (id="myBtn" opens modal) -->
+                        <button type="button" id="myBtn" class="btn-add-new">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            AÑADIR NUEVO
+                        </button>
+                        <button type="button" class="btn-toolbar-icon" title="Abrir Formulario" onclick="document.getElementById('myBtn').click()">
+                            <span>😊</span>
+                            <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-controls">
+                        <!-- Page Size Selector -->
+                        <div class="page-size-selector">
+                            <label for="selectResultadosPorPagina">Resultados / pág:</label>
+                            <select id="selectResultadosPorPagina" class="custom-select">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+
+                        <!-- Real-time Search Input -->
+                        <div class="search-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" id="inputBuscarProducto" class="search-input" placeholder="Buscar producto..." autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="table-responsive">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <!-- Sortable Column: ID -->
+                                <th scope="col" id="thId" class="sortable-th col-id" title="Ordenar por ID">
+                                    <div class="th-content">
+                                        <span>✨ # (ID)</span>
+                                        <i class="fa-solid fa-sort sort-icon" id="iconSortId"></i>
+                                    </div>
+                                </th>
+
+                                <!-- Sortable Column: Nombre -->
+                                <th scope="col" id="thNombre" class="sortable-th col-nombre" title="Ordenar Alfabéticamente">
+                                    <div class="th-content">
+                                        <span>NOMBRE DEL PRODUCTO</span>
+                                        <i class="fa-solid fa-sort sort-icon" id="iconSortNombre"></i>
+                                    </div>
+                                </th>
+
+                                <!-- Sortable Column: Precio -->
+                                <th scope="col" id="thPrecio" class="sortable-th col-precio" title="Ordenar por Precio">
+                                    <div class="th-content">
+                                        <span>PRECIO</span>
+                                        <i class="fa-solid fa-sort sort-icon" id="iconSortPrecio"></i>
+                                    </div>
+                                </th>
+
+                                <!-- Column: Cantidad -->
+                                <th scope="col" class="col-cantidad">
+                                    <span>CANTIDAD</span>
+                                </th>
+
+                                <!-- Column: Acciones -->
+                                <th scope="col" class="col-acciones">
+                                    <span>ACCIONES</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <!-- Target tbody populated by Controller -->
+                        <tbody id="tablaProductos">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Footer: Pagination & Results Counter -->
+                <div class="table-footer">
+                    <div class="pagination-wrapper">
+                        <span class="pagination-label">Página:</span>
+                        <ul class="pagination-list" id="paginacionControles">
+                            <!-- Injected dynamically -->
+                        </ul>
+                    </div>
+
+                    <div class="results-info">
+                        <span class="results-info-pill" id="textoResultadosPaginacion">Mostrando 0 a 0 de 0 resultados 🎉</span>
+                        <!-- Hidden hook to safely prevent index.js reference errors -->
+                        <span id="totalProductos" style="display: none;"></span>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ======================================================================
+         Bottom Footer Bar (Matching Screenshot)
+         ====================================================================== -->
+    <footer class="bottom-footer-bar">
+        <div class="footer-left-group">
+            <span class="footer-badge-s">$</span>
+            <span>© 2025-2026 Sena API REST proyect • Servicio Nacional de Aprendizaje - Gestión & Catálogo de Productos</span>
+        </div>
+        <div class="footer-links-group">
+            <span class="footer-pill-status">🟢 API REST Online!</span>
+            <span>★</span>
+            <span class="footer-link-item">Documentación Swagger</span>
+            <span>★</span>
+            <span class="footer-link-item">Mesa de Ayuda SENA</span>
+        </div>
+    </footer>
+
+    <!-- ======================================================================
+         Product Registration / Edit Modal (Neo-Brutalism Style)
+         ====================================================================== -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header-custom">
+                <div class="modal-title-wrapper">
+                    <span class="modal-title-icon">📦</span>
+                    <!-- id="tituloModal" used dynamically by index.js -->
+                    <h3 id="tituloModal">Crear Producto</h3>
+                </div>
+                <!-- class="close" used by index.js -->
+                <button type="button" class="close" aria-label="Cerrar">&times;</button>
+            </div>
+
+            <!-- Modal Body with Form Inputs -->
+            <div class="modal-body-custom">
+                <form id="formProducto" onsubmit="return false;">
+                    <!-- Input: Nombre -->
+                    <div class="form-group-custom">
+                        <label for="nombre" class="form-label-custom">
+                            Nombre del Producto <span class="required">*</span>
+                        </label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-tag"></i>
+                            <input type="text" class="input-control-custom" id="nombre" placeholder="Ej. Teclado Mecánico" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- Input: Precio -->
+                    <div class="form-group-custom">
+                        <label for="precio" class="form-label-custom">
+                            Precio ($) <span class="required">*</span>
+                        </label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-coins"></i>
+                            <input type="number" class="input-control-custom" id="precio" placeholder="0.00" min="0" required>
+                        </div>
+                    </div>
+
+                    <!-- Input: Cantidad -->
+                    <div class="form-group-custom">
+                        <label for="cantidad" class="form-label-custom">
+                            Cantidad en Stock <span class="required">*</span>
+                        </label>
+                        <div class="input-icon-group">
+                            <i class="fa-solid fa-cubes-stacked"></i>
+                            <input type="number" class="input-control-custom" id="cantidad" placeholder="Ej. 10" min="0" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button: id="btnGuardar" hooked directly into index.js -->
+                    <button type="button" id="btnGuardar" class="btn-guardar-producto">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        ¡Guardar Producto! 🚀
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         Scripts
+         ====================================================================== -->
+    <!-- Core Application Logic (CRUD & API Consumption) -->
+    <script src="index.js"></script>
+
+    <!-- Presentation Controller: Sorting, Filtering, Dynamic Stats & Pagination -->
+    <script>
+        (function() {
+            // Presentation State
+            let paginaActual = 1;
+            let itemsPorPagina = 10;
+            let criterioOrden = { columna: 'id', direccion: 'asc' };
+            let textoBusqueda = '';
+            let estaCargando = true;
+            let productosLocales = [];
+
+            // DOM Elements
+            const selectPagina = document.getElementById('selectResultadosPorPagina');
+            const inputBusqueda = document.getElementById('inputBuscarProducto');
+            const thId = document.getElementById('thId');
+            const thNombre = document.getElementById('thNombre');
+            const thPrecio = document.getElementById('thPrecio');
+            const iconId = document.getElementById('iconSortId');
+            const iconNombre = document.getElementById('iconSortNombre');
+            const iconPrecio = document.getElementById('iconSortPrecio');
+            const paginacionList = document.getElementById('paginacionControles');
+            const textoInfoResultados = document.getElementById('textoResultadosPaginacion');
+            const btnSidebarRegistrar = document.getElementById('btnSidebarRegistrar');
+            const btnRefrescar = document.getElementById('btnRefrescarPop');
+
+            // Top Stat Elements
+            const statNumTotal = document.getElementById('statNumTotal');
+            const statValorInventario = document.getElementById('statValorInventario');
+            const statNumCritico = document.getElementById('statNumCritico');
+            const activityList = document.getElementById('activityList');
+
+            // Refresh Button
+            if (btnRefrescar) {
+                btnRefrescar.addEventListener('click', function() {
+                    this.querySelector('i').classList.add('fa-spin');
+                    cargarProductosDesdeServidor().then(() => {
+                        setTimeout(() => {
+                            this.querySelector('i').classList.remove('fa-spin');
+                        }, 500);
+                    });
+                });
+            }
+
+            // Helper to get category icon based on product name
+            function getIconoPorNombre(nombre) {
+                if (!nombre) return '📦';
+                const n = nombre.toLowerCase();
+                if (n.includes('camisa') || n.includes('pantalon') || n.includes('pantalón') || n.includes('ropa')) return '👕';
+                if (n.includes('robot') || n.includes('esp32') || n.includes('arduino')) return '🤖';
+                if (n.includes('botella') || n.includes('cola') || n.includes('speed') || n.includes('bebida')) return '🥤';
+                if (n.includes('guitarra') || n.includes('acústica') || n.includes('musica') || n.includes('música')) return '🎸';
+                if (n.includes('teclado') || n.includes('mouse') || n.includes('pc')) return '⌨️';
+                return '📦';
+            }
+
+            // Update Top 3 Stats & Recent Activity
+            function actualizarEstadisticas(productos) {
+                const total = productos.length;
+                let valorTotal = 0;
+                let criticos = 0;
+
+                productos.forEach(p => {
+                    const cant = Number(p.cantidad) || 0;
+                    const prec = Number(p.precio) || 0;
+                    valorTotal += (cant * prec);
+                    if (cant <= 5) {
+                        criticos++;
+                    }
+                });
+
+                if (statNumTotal) statNumTotal.innerText = total;
+                if (statValorInventario) statValorInventario.innerText = `$${valorTotal.toLocaleString('es-CO')}`;
+                if (statNumCritico) statNumCritico.innerText = criticos;
+
+                // Update recent activity with last registered items
+                if (activityList && productos.length > 0) {
+                    const ultimos = productos.slice(-2).reverse();
+                    activityList.innerHTML = ultimos.map(p => `
+                        <div class="activity-item">
+                            <span class="act-icon">${getIconoPorNombre(p.nombre)}</span>
+                            <div class="act-content">
+                                <span class="act-name">${escapeHtml(p.nombre)}</span>
+                                <span class="act-time">Stock: ${p.cantidad}u • $${Number(p.precio || 0).toLocaleString('es-CO')}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Sidebar Registration Form Handler
+            if (btnSidebarRegistrar) {
+                btnSidebarRegistrar.addEventListener('click', async function() {
+                    const sNombre = document.getElementById('sidebar_nombre').value.trim();
+                    const sPrecio = parseInt(document.getElementById('sidebar_precio').value, 10);
+                    const sCantidad = parseInt(document.getElementById('sidebar_cantidad').value, 10);
+
+                    if (!sNombre || isNaN(sPrecio) || isNaN(sCantidad)) {
+                        Swal.fire({
+                            title: 'Campos incompletos',
+                            text: 'Por favor diligencia todos los campos del producto.',
+                            icon: 'warning',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return;
+                    }
+
+                    const nuevoProducto = {
+                        nombre: sNombre,
+                        precio: sPrecio,
+                        cantidad: sCantidad
+                    };
+
+                    try {
+                        const res = await fetch('http://localhost:8080/api/productos/create', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(nuevoProducto)
+                        });
+
+                        if (!res.ok) throw new Error('Error al crear producto');
+
+                        Swal.fire({
+                            title: '¡Producto Creado!',
+                            text: 'El producto se creó correctamente',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
+
+                        document.getElementById('sidebar_nombre').value = '';
+                        document.getElementById('sidebar_precio').value = '';
+                        document.getElementById('sidebar_cantidad').value = '';
+
+                        await cargarProductosDesdeServidor();
+                    } catch (err) {
+                        console.error(err);
+                        Swal.fire({
+                            title: '¡Error al crear!',
+                            text: 'No se pudo crear el producto correctamente',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                });
+            }
+
+            // Page Size Selector Listener
+            if (selectPagina) {
+                selectPagina.addEventListener('change', function() {
+                    itemsPorPagina = parseInt(this.value, 10) || 10;
+                    paginaActual = 1;
+                    actualizarTablaCompleta();
+                });
+            }
+
+            // Live Search Input Listener
+            if (inputBusqueda) {
+                inputBusqueda.addEventListener('input', function() {
+                    textoBusqueda = this.value.trim().toLowerCase();
+                    paginaActual = 1;
+                    actualizarTablaCompleta();
+                });
+            }
+
+            // Sort Header Click Listeners
+            if (thId) {
+                thId.addEventListener('click', function() {
+                    toggleOrden('id');
+                });
+            }
+
+            if (thNombre) {
+                thNombre.addEventListener('click', function() {
+                    toggleOrden('nombre');
+                });
+            }
+
+            if (thPrecio) {
+                thPrecio.addEventListener('click', function() {
+                    toggleOrden('precio');
+                });
+            }
+
+            function toggleOrden(columna) {
+                if (criterioOrden.columna === columna) {
+                    criterioOrden.direccion = (criterioOrden.direccion === 'asc') ? 'desc' : 'asc';
+                } else {
+                    criterioOrden.columna = columna;
+                    criterioOrden.direccion = (columna === 'precio') ? 'desc' : 'asc';
+                }
+                actualizarTablaCompleta();
+            }
+
+            function actualizarIconosOrden() {
+                const resetIcon = (icon) => {
+                    if (icon) {
+                        icon.className = 'fa-solid fa-sort sort-icon';
+                        icon.classList.remove('sort-active');
+                    }
+                };
+                resetIcon(iconId);
+                resetIcon(iconNombre);
+                resetIcon(iconPrecio);
+
+                let activeIcon = null;
+                if (criterioOrden.columna === 'id') activeIcon = iconId;
+                else if (criterioOrden.columna === 'nombre') activeIcon = iconNombre;
+                else if (criterioOrden.columna === 'precio') activeIcon = iconPrecio;
+
+                if (activeIcon) {
+                    activeIcon.classList.add('sort-active');
+                    if (criterioOrden.direccion === 'asc') {
+                        activeIcon.className = 'fa-solid fa-sort-up sort-icon sort-active';
+                    } else {
+                        activeIcon.className = 'fa-solid fa-sort-down sort-icon sort-active';
+                    }
+                }
+            }
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            // Primary Render Table Function
+            function actualizarTablaCompleta() {
+                const tbody = document.getElementById('tablaProductos');
+                if (!tbody) return;
+
+                // Priority: productosLocales -> global listaProductos -> window.listaProductos
+                let productos = [];
+                if (Array.isArray(productosLocales) && productosLocales.length > 0) {
+                    productos = productosLocales;
+                } else if (typeof listaProductos !== 'undefined' && Array.isArray(listaProductos) && listaProductos.length > 0) {
+                    productos = listaProductos;
+                    productosLocales = listaProductos;
+                } else if (Array.isArray(window.listaProductos) && window.listaProductos.length > 0) {
+                    productos = window.listaProductos;
+                    productosLocales = window.listaProductos;
+                }
+
+                if (productos.length > 0) {
+                    estaCargando = false;
+                    actualizarEstadisticas(productos);
+                }
+
+                // If currently waiting for data, show clean loading state (never "No se encontraron")
+                if (estaCargando && productos.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-table-state">
+                                <i class="fa-solid fa-spinner fa-spin" style="color: var(--pop-green-dark);"></i>
+                                <p>Cargando catálogo de productos...</p>
+                            </td>
+                        </tr>
+                    `;
+                    if (textoInfoResultados) {
+                        textoInfoResultados.innerHTML = `Cargando productos...`;
+                    }
+                    return;
+                }
+
+                // 1. Filter
+                let productosFiltrados = productos.slice();
+                if (textoBusqueda !== '') {
+                    productosFiltrados = productosFiltrados.filter(p => {
+                        const nombreMatch = p.nombre && p.nombre.toLowerCase().includes(textoBusqueda);
+                        const idMatch = p.id && p.id.toString().includes(textoBusqueda);
+                        return nombreMatch || idMatch;
+                    });
+                }
+
+                // 2. Sort
+                productosFiltrados.sort((a, b) => {
+                    if (criterioOrden.columna === 'id') {
+                        const idA = Number(a.id) || 0;
+                        const idB = Number(b.id) || 0;
+                        return criterioOrden.direccion === 'asc' ? idA - idB : idB - idA;
+                    } else if (criterioOrden.columna === 'nombre') {
+                        const nomA = (a.nombre || '').toLowerCase();
+                        const nomB = (b.nombre || '').toLowerCase();
+                        const comp = nomA.localeCompare(nomB, 'es', { numeric: true, sensitivity: 'base' });
+                        return criterioOrden.direccion === 'asc' ? comp : -comp;
+                    } else if (criterioOrden.columna === 'precio') {
+                        const prA = Number(a.precio) || 0;
+                        const prB = Number(b.precio) || 0;
+                        return criterioOrden.direccion === 'asc' ? prA - prB : prB - prA;
+                    }
+                    return 0;
+                });
+
+                // 3. Pagination
+                const totalFiltrados = productosFiltrados.length;
+                const totalPaginas = Math.max(1, Math.ceil(totalFiltrados / itemsPorPagina));
+                if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+                if (paginaActual < 1) paginaActual = 1;
+
+                const inicio = (paginaActual - 1) * itemsPorPagina;
+                const fin = Math.min(inicio + itemsPorPagina, totalFiltrados);
+                const itemsPagina = productosFiltrados.slice(inicio, fin);
+
+                // 4. Render Rows in tbody
+                tbody.innerHTML = '';
+
+                if (itemsPagina.length === 0) {
+                    const trVacio = document.createElement('tr');
+                    trVacio.innerHTML = `
+                        <td colspan="5" class="empty-table-state">
+                            <i class="fa-solid fa-box-open"></i>
+                            <p>No se encontraron productos registrados</p>
+                        </td>
+                    `;
+                    tbody.appendChild(trVacio);
+                } else {
+                    itemsPagina.forEach(p => {
+                        let badgeStockClass = 'stock-badge';
+                        const cant = Number(p.cantidad) || 0;
+                        if (cant <= 5) badgeStockClass += ' stock-low';
+                        else if (cant <= 15) badgeStockClass += ' stock-medium';
+                        else badgeStockClass += ' stock-good';
+
+                        const precioFormateado = Number(p.precio || 0).toLocaleString('es-CO');
+                        const iconCat = getIconoPorNombre(p.nombre);
+
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="col-id">
+                                <span class="id-badge-pill">${p.id}</span>
+                            </td>
+                            <td class="col-nombre">
+                                <span style="margin-right: 6px;">${iconCat}</span>${escapeHtml(p.nombre)}
+                            </td>
+                            <td class="col-precio">
+                                <span class="price-pop-pill">$${precioFormateado}</span>
+                            </td>
+                            <td class="col-cantidad">
+                                <span class="${badgeStockClass}">${cant} u.</span>
+                            </td>
+                            <td class="col-acciones">
+                                <button type="button" class="btn-accion btn-editar" title="Modificar Producto" onclick="modificarProducto(${p.id})">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button type="button" class="btn-accion btn-eliminar" title="Eliminar Producto" onclick="eliminarProducto(${p.id})">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+                // 5. Render Pagination Controls & Info
+                renderizarPaginacion(totalFiltrados, totalPaginas, inicio, fin);
+
+                // 6. Update Sort Icons
+                actualizarIconosOrden();
+            }
+
+            function renderizarPaginacion(totalFiltrados, totalPaginas, inicio, fin) {
+                if (textoInfoResultados) {
+                    if (totalFiltrados === 0) {
+                        textoInfoResultados.innerHTML = `Mostrando 0 de 0 resultados 🎉`;
+                    } else {
+                        textoInfoResultados.innerHTML = `Mostrando ${inicio + 1} a ${fin} de ${totalFiltrados} resultados 🎉`;
+                    }
+                }
+
+                if (!paginacionList) return;
+                paginacionList.innerHTML = '';
+
+                // First page button «
+                const liFirst = document.createElement('li');
+                liFirst.innerHTML = `<button type="button" class="page-btn" ${paginaActual === 1 ? 'disabled' : ''} title="Primera página"><i class="fa-solid fa-angles-left"></i></button>`;
+                liFirst.querySelector('button').addEventListener('click', () => {
+                    if (paginaActual > 1) {
+                        paginaActual = 1;
+                        actualizarTablaCompleta();
+                    }
+                });
+                paginacionList.appendChild(liFirst);
+
+                // Prev page button ‹
+                const liPrev = document.createElement('li');
+                liPrev.innerHTML = `<button type="button" class="page-btn" ${paginaActual === 1 ? 'disabled' : ''} title="Página anterior"><i class="fa-solid fa-angle-left"></i></button>`;
+                liPrev.querySelector('button').addEventListener('click', () => {
+                    if (paginaActual > 1) {
+                        paginaActual--;
+                        actualizarTablaCompleta();
+                    }
+                });
+                paginacionList.appendChild(liPrev);
+
+                // Page Number Buttons
+                const delta = 2;
+                const rangeStart = Math.max(1, paginaActual - delta);
+                const rangeEnd = Math.min(totalPaginas, paginaActual + delta);
+
+                for (let i = rangeStart; i <= rangeEnd; i++) {
+                    const liNum = document.createElement('li');
+                    liNum.innerHTML = `<button type="button" class="page-btn ${i === paginaActual ? 'active' : ''}">${i}</button>`;
+                    const btnNum = liNum.querySelector('button');
+                    btnNum.addEventListener('click', () => {
+                        paginaActual = i;
+                        actualizarTablaCompleta();
+                    });
+                    paginacionList.appendChild(liNum);
+                }
+
+                // Next page button ›
+                const liNext = document.createElement('li');
+                liNext.innerHTML = `<button type="button" class="page-btn" ${paginaActual === totalPaginas ? 'disabled' : ''} title="Página siguiente"><i class="fa-solid fa-angle-right"></i></button>`;
+                liNext.querySelector('button').addEventListener('click', () => {
+                    if (paginaActual < totalPaginas) {
+                        paginaActual++;
+                        actualizarTablaCompleta();
+                    }
+                });
+                paginacionList.appendChild(liNext);
+
+                // Last page button »
+                const liLast = document.createElement('li');
+                liLast.innerHTML = `<button type="button" class="page-btn" ${paginaActual === totalPaginas ? 'disabled' : ''} title="Última página"><i class="fa-solid fa-angles-right"></i></button>`;
+                liLast.querySelector('button').addEventListener('click', () => {
+                    if (paginaActual < totalPaginas) {
+                        paginaActual = totalPaginas;
+                        actualizarTablaCompleta();
+                    }
+                });
+                paginacionList.appendChild(liLast);
+            }
+
+            // Dedicated API Fetch Function
+            async function cargarProductosDesdeServidor() {
+                try {
+                    const res = await fetch('http://localhost:8080/api/productos');
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        productosLocales = data;
+                        estaCargando = false;
+                        try { listaProductos = data; } catch(e) {}
+                        try { window.listaProductos = data; } catch(e) {}
+                        actualizarTablaCompleta();
+                    }
+                } catch(err) {
+                    estaCargando = false;
+                    console.error('Error al cargar productos:', err);
+                    actualizarTablaCompleta();
+                }
+            }
+
+            // Hook window.obtenerProductos to re-render using our controller on any CRUD action
+            window.obtenerProductos = cargarProductosDesdeServidor;
+
+            // Observer on #totalProductos: when index.js finishes its initial fetch, immediately re-render clean table
+            const elTotal = document.getElementById('totalProductos');
+            if (elTotal) {
+                const totalObserver = new MutationObserver(() => {
+                    if (typeof listaProductos !== 'undefined' && Array.isArray(listaProductos) && listaProductos.length > 0) {
+                        productosLocales = listaProductos;
+                        estaCargando = false;
+                        actualizarTablaCompleta();
+                    }
+                });
+                totalObserver.observe(elTotal, { childList: true, characterData: true, subtree: true });
+            }
+
+            // Initial load
+            actualizarTablaCompleta();
+            cargarProductosDesdeServidor();
+        })();
+    </script>
+</body>
+</html>
