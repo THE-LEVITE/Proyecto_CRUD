@@ -48,6 +48,9 @@ public class ProductoControlador {
         productoRepositorio.deleteById(id);
     }
     
+    /*
+    
+    */    
     @PutMapping(value = "/productos/update/{id}")
     public ProductoModel modificarProducto(
             @PathVariable Integer id,
